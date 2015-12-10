@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="UWPMoviePlayback.SeekBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPMoviePlayback"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="50"
+    d:DesignWidth="500">
+
+    <Grid Width="200" Height="auto" MinHeight="32" MinWidth="32" x:Name="SliderBase">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="MouseOver">
+                    <Storyboard>
+                        <DoubleAnimation  Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Elip"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!-- Base -->
+        <Rectangle Width="auto" Height="1"
+                               VerticalAlignment="Center"
+                               Fill="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"/>
+        <!-- Thumb -->
+        <Thumb x:Name="PositionThumb"
+                           Height="auto" Width="32"
+                           Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                           HorizontalAlignment="left"  DragDelta="PositionThumb_DragDelta" DragStarted="PositionThumb_DragStarted" DragCompleted="PositionThumb_DragCompleted" 
+               SizeChanged="PositionThumb_SizeChanged"
+                           >
+            <Thumb.Template>
+                <ControlTemplate TargetType="Thumb">
+                    <Ellipse Fill="{TemplateBinding Background}" Opacity="1.0" x:Name="Elip" />
+                </ControlTemplate>
+            </Thumb.Template>
+            <Thumb.RenderTransform>
+                <CompositeTransform TranslateX="{Binding HPos}"/>
+            </Thumb.RenderTransform>
+        </Thumb>
+    </Grid>
+</UserControl>
